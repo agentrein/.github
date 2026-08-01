@@ -1,26 +1,135 @@
 <div align="center">
-  <img src="https://www.agentrein.com/AgentRein.png" width="500" alt="AgentRein" />
 
-  <p><strong>Wrap your AI agents. Undo anything.</strong></p>
-</div>
+<img src="https://www.agentrein.com/AgentRein.png" width="560" alt="AgentRein" />
 
-<div align="center">
-  
-[![Docs](https://img.shields.io/badge/Docs-agentrein.com-45bb00?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMjAwIDIwMCI+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBmaWxsPSIjZmZmZmZmIiBkPSJNMjAwIDEwMCBBMTAwIDEwMCAwIDEgMCAwIDEwMCBBMTAwIDEwMCAwIDEgMCAyMDAgMTAwIFogTTUwLjQ4IDUwLjI3IGMwIDAuMDggNS41NiA1LjY5IDEyLjM1IDEyLjQ4IGwxMi4zNyAxMi4zNyBsLTEyLjQ1IDAgbC0xMi40MyAwIGwwIDM3LjM2IGwwIDM3LjM2IGwxMi40OCAwIGwxMi40OCAwIGwwIC0xOS43MyBsMCAtMTkuNzQgbDE5Ljc0IDE5Ljc0IGwxOS43MyAxOS43MyBsMTcuNTUgMCBjOS42NCAwIDE3LjU0IC0wLjA1IDE3LjU0IC0wLjEzIGMwIC0wLjA3IC01LjU0IC01LjY2IC0xMi4zMiAtMTIuNDMgYy02Ljc4IC02Ljc4IC0xMi4zMiAtMTIuMzIgLTEyLjMyIC0xMi4zNCBjMCAwIDAuNzYgLTAuMDcgMS42NyAtMC4xMiBjMi4wMiAtMC4xMiA0Ljk3IC0wLjc0IDYuOTEgLTEuNDkgYzMuNTYgLTEuMzYgNS45OCAtMi45NSA4Ljg1IC01LjgyIGMzIC0zLjAyIDQuODggLTYgNi4wNiAtOS42OCBjMS4yOSAtMy45OCAxLjM0IC00Ljk1IDEuMjYgLTIxLjcgYy0wLjA3IC0xNS40MSAtMC4wMyAtMTQuOTMgLTEuMSAtMTguMzkgYy0yLjk0IC05LjUgLTExLjI4IC0xNi4zNCAtMjEuMjUgLTE3LjQzIGMtMS44MyAtMC4yIC03Ny4xMSAtMC4yNCAtNzcuMTEgLTAuMDUgbTc0LjU2IDQ5LjY1IGMwIDEzLjYzIC0wLjAxIDI0LjggLTAuMDUgMjQuOCBjLTAuMDEgMCAtMTEuMiAtMTEuMTYgLTI0LjgzIC0yNC44IGwtMjQuOCAtMjQuOCBsMjQuODQgMCBsMjQuODMgMCBsMCAyNC44Ii8+PC9zdmc+Cg==&logoColor=white)](https://www.agentrein.com/docs)
-[![npm](https://img.shields.io/npm/v/agentrein?style=for-the-badge&logo=npm&color=CB3837&logoColor=white)](https://www.npmjs.com/package/agentrein)
-[![Discord](https://img.shields.io/badge/Discord-AgentRein-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/EWkfguCV)
+<br />
+
+# Wrap your AI agents. Undo anything.
+
+### The rollback layer for AI agents.
+
+Ship autonomous AI agents with confidence. AgentRein records every action, adds approval gates, captures audit logs, and automatically rolls back production changes when something goes wrong.
+
+<br />
+
+[![Docs](https://img.shields.io/badge/Docs-agentrein.com-45bb00?style=for-the-badge)](https://www.agentrein.com/docs)
+[![Website](https://img.shields.io/badge/Website-agentrein.com-6b7280?style=for-the-badge)](https://www.agentrein.com)
+[![npm](https://img.shields.io/npm/v/agentrein?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/agentrein)
+[![Discord](https://img.shields.io/badge/Discord-AgentRein-5865F2?style=for-the-badge&logo=discord)](https://discord.gg/EWkfguCV)
 
 </div>
 
 ---
 
-## What is AgentRein?
+# Why AgentRein?
 
-AgentRein is a rollback and safety layer for AI agents that take actions in production tools. It records agent actions, captures before-state where needed, and executes service-specific rollback logic when an action must be undone. Learn more at [AgentRein](https://agentrein.com).
+AI agents are becoming autonomous.
 
-Whether you're running agents against Stripe, Slack, GitHub, or any other service. AgentRein ensures every action is safe, observable, and reversible.
+Production systems are not.
 
-## How it Works
+A single incorrect action can:
+
+- Generate the wrong invoice.
+- Send an email to the wrong customer.
+- Delete production data.
+- Open the wrong GitHub issue.
+- Modify the wrong Notion page.
+
+Most AI infrastructure helps agents make decisions.
+
+**AgentRein helps recover when those decisions are wrong.**
+
+---
+
+# What AgentRein Does
+
+AgentRein sits between your AI agent and production services.
+
+It provides four safety layers:
+
+- ↶ **Automatic Rollback** — Reverse production actions automatically.
+- ✓ **Approval Gates** — Pause high-risk actions for human approval.
+- ◎ **Audit Trail** — Record every action and decision.
+- ◇ **Intent Verification** — Detect goal drift before execution.
+
+Wrap your existing SDKs.
+
+Keep your existing architecture.
+
+No rewrites.
+
+---
+
+# Quickstart
+
+### 1. Install
+
+```bash
+npm install agentrein
+```
+
+### 2. Wrap your SDK
+
+```ts
+const session = await agentrein.newSession({
+  agentId: "billing-agent",
+  intent: "Create customer invoice"
+})
+
+const stripe = agentrein.wrap(stripeClient, session)
+```
+
+### 3. Ship safely
+
+```ts
+await stripe.invoices.create(...)
+```
+
+---
+
+# What happens on failure?
+
+```text
+Agent executes
+
+      │
+
+      ▼
+
+Stripe invoice created
+Slack message sent
+GitHub issue opened
+
+      │
+
+      ▼
+
+Unexpected behavior detected
+
+      │
+
+      ▼
+
+Rollback initiated
+
+      │
+
+      ▼
+
+Invoice cancelled
+Slack reverted
+GitHub issue closed
+
+      │
+
+      ▼
+
+System recovered
+```
+
+---
+
+# How it works
 
 ```mermaid
 %%{init: {
@@ -36,29 +145,86 @@ Whether you're running agents against Stripe, Slack, GitHub, or any other servic
 }}%%
 
 flowchart LR
-    A[AI Agent]
-    B[Record Action Metadata]
-    C[Match Connector by apiName]
-    D{captureBeforeState?}
-    E[Snapshot Resource]
-    F[Rollback Requested]
-    G[Execute Connector Rollback]
-    H[Restore / Compensate / Gate]
-    I[Safe Recovery]
 
-    A --> B --> C --> D
-    D -->|Yes| E --> F
-    D -->|No| F
-    F --> G --> H --> I
+A[AI Agent]
+
+B[Observe]
+
+C[Approval]
+
+D[Execute]
+
+E{Failure?}
+
+F[Rollback]
+
+G[Recovered]
+
+A --> B --> C --> D --> E
+
+E -->|No| G
+
+E -->|Yes| F --> G
 ```
 
-## Repositories
+---
 
-This GitHub organization contains repos officially maintained by [AgentRein](https://www.agentrein.com).
+# Ecosystem
 
-- Connectors and plugin interfaces live in the [`agentrein-connectors`](https://github.com/agentrein/agentrein-connectors) repo
-- The TypeScript SDK lives in the [`sdk`](https://github.com/agentrein/sdk) repo
-- Documentation for all products is in the [`docs`](https://github.com/agentrein/docs) repo
+| Repository | Purpose |
+|------------|---------|
+| **sdk** | TypeScript SDK |
+| **agentrein-connectors** | Rollback connectors for production services |
+| **docs** | Documentation |
+| **examples** *(coming soon)* | End-to-end examples |
 
-## Contributing
-We welcome contributions to our open-source connectors. See [`agentrein-connectors`](https://github.com/agentrein/agentrein-connectors) to get started.
+---
+
+# Supported integrations
+
+- Stripe
+- Slack
+- GitHub
+- Notion
+- HubSpot
+- Salesforce
+- Gmail
+- Google Drive
+- Google Sheets
+
+…and more through open-source connectors.
+
+---
+
+# Documentation
+
+- 📖 Documentation → https://agentrein.com/docs
+- ⚡ Quickstart → https://agentrein.com/docs
+- 🔌 Connectors → https://github.com/agentrein/agentrein-connectors
+- 💬 Discord → https://discord.gg/EWkfguCV
+
+---
+
+# Built in the open.
+
+AgentRein is open source.
+
+We welcome:
+
+- New connectors
+- Bug fixes
+- Documentation improvements
+- Examples
+- Ideas
+
+If you're building AI infrastructure, we'd love to collaborate.
+
+---
+
+<div align="center">
+
+### Let them act.
+
+# Sleep at night.
+
+</div>
