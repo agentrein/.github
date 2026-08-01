@@ -1,19 +1,17 @@
 <div align="center">
 
-<img src="https://www.agentrein.com/AgentRein.png" width="560" alt="AgentRein" />
-
-<br />
+<img src="https://www.agentrein.com/AgentRein.png" width="560" alt="AgentRein"/>
 
 # Wrap your AI agents. Undo anything.
 
 ### The rollback layer for AI agents.
 
-Ship autonomous AI agents with confidence. AgentRein records every action, adds approval gates, captures audit logs, and automatically rolls back production changes when something goes wrong.
+Protect production AI agents with automatic rollback, approval gates, audit trails, and intent verification.
 
-<br />
+<br>
 
-[![Docs](https://img.shields.io/badge/Docs-agentrein.com-45bb00?style=for-the-badge)](https://www.agentrein.com/docs)
-[![Website](https://img.shields.io/badge/Website-agentrein.com-6b7280?style=for-the-badge)](https://www.agentrein.com)
+[![Docs](https://img.shields.io/badge/Docs-agentrein.com-45bb00?style=for-the-badge)](https://agentrein.com/docs)
+[![Website](https://img.shields.io/badge/Website-agentrein.com-111827?style=for-the-badge)](https://agentrein.com)
 [![npm](https://img.shields.io/npm/v/agentrein?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/agentrein)
 [![Discord](https://img.shields.io/badge/Discord-AgentRein-5865F2?style=for-the-badge&logo=discord)](https://discord.gg/EWkfguCV)
 
@@ -21,209 +19,146 @@ Ship autonomous AI agents with confidence. AgentRein records every action, adds 
 
 ---
 
-# Why AgentRein?
-
-AI agents are becoming autonomous.
-
-Production systems are not.
-
-A single incorrect action can:
-
-- Generate the wrong invoice.
-- Send an email to the wrong customer.
-- Delete production data.
-- Open the wrong GitHub issue.
-- Modify the wrong Notion page.
-
-Most AI infrastructure helps agents make decisions.
-
-**AgentRein helps recover when those decisions are wrong.**
-
----
-
-# What AgentRein Does
-
-AgentRein sits between your AI agent and production services.
-
-It provides four safety layers:
-
-- ↶ **Automatic Rollback** — Reverse production actions automatically.
-- ✓ **Approval Gates** — Pause high-risk actions for human approval.
-- ◎ **Audit Trail** — Record every action and decision.
-- ◇ **Intent Verification** — Detect goal drift before execution.
-
-Wrap your existing SDKs.
-
-Keep your existing architecture.
-
-No rewrites.
-
----
-
-# Quickstart
-
-### 1. Install
+## Install
 
 ```bash
 npm install agentrein
 ```
 
-### 2. Wrap your SDK
+---
+
+## Wrap
 
 ```ts
 const session = await agentrein.newSession({
   agentId: "billing-agent",
   intent: "Create customer invoice"
-})
+});
 
-const stripe = agentrein.wrap(stripeClient, session)
+const stripe = agentrein.wrap(stripeClient, session);
 ```
 
-### 3. Ship safely
+---
+
+## Run
 
 ```ts
-await stripe.invoices.create(...)
+await stripe.invoices.create({
+  customer,
+  amount
+});
 ```
+
+That's it.
 
 ---
 
-# What happens on failure?
+# Why AgentRein?
 
-```text
-Agent executes
+AI agents already know **how to act**.
 
-      │
+Production systems don't know **how to recover**.
 
-      ▼
+One incorrect action can:
 
-Stripe invoice created
-Slack message sent
-GitHub issue opened
+- Generate the wrong invoice
+- Email the wrong customer
+- Modify production data
+- Create the wrong GitHub issue
+- Update the wrong Notion page
 
-      │
+AgentRein makes production actions:
 
-      ▼
-
-Unexpected behavior detected
-
-      │
-
-      ▼
-
-Rollback initiated
-
-      │
-
-      ▼
-
-Invoice cancelled
-Slack reverted
-GitHub issue closed
-
-      │
-
-      ▼
-
-System recovered
-```
+- Observable
+- Approvable
+- Reversible
 
 ---
 
-# How it works
+# Features
 
-```mermaid
-%%{init: {
-  "theme": "base",
-  "themeVariables": {
-    "primaryColor": "#1f2937",
-    "primaryTextColor": "#ffffff",
-    "primaryBorderColor": "#6b7280",
-    "lineColor": "#9ca3af",
-    "secondaryColor": "#374151",
-    "tertiaryColor": "#111827"
-  }
-}}%%
+| | |
+|:-|:-|
+| ↶ **Automatic Rollback** | Reverse supported production actions automatically. |
+| ✓ **Approval Gates** | Require human approval before risky operations. |
+| ◎ **Audit Trail** | Record every action, decision, input, and execution. |
+| ◇ **Intent Verification** | Detect goal drift before agents reach production. |
 
-flowchart LR
+---
 
-A[AI Agent]
+# Example
 
-B[Observe]
+```ts
+const session = await agentrein.newSession({
+  intent: "Onboard enterprise customer"
+});
 
-C[Approval]
+const stripe = agentrein.wrap(stripeClient, session);
 
-D[Execute]
-
-E{Failure?}
-
-F[Rollback]
-
-G[Recovered]
-
-A --> B --> C --> D --> E
-
-E -->|No| G
-
-E -->|Yes| F --> G
+await stripe.customers.create(...);
+await stripe.invoices.create(...);
 ```
+
+Automatically:
+
+- Records execution metadata
+- Captures rollback state
+- Applies approval policies
+- Executes rollback when requested
+
+---
+
+# Supported Integrations
+
+| | | |
+|:-|:-|:-|
+| Stripe | Slack | GitHub |
+| Notion | HubSpot | Salesforce |
+| Gmail | Google Drive | Google Sheets |
+
+More integrations are available through open-source connectors.
 
 ---
 
 # Ecosystem
 
-| Repository | Purpose |
-|------------|---------|
+| Repository | Description |
+|------------|-------------|
 | **sdk** | TypeScript SDK |
-| **agentrein-connectors** | Rollback connectors for production services |
+| **agentrein-connectors** | Open-source rollback connectors |
 | **docs** | Documentation |
 | **examples** *(coming soon)* | End-to-end examples |
 
 ---
 
-# Supported integrations
-
-- Stripe
-- Slack
-- GitHub
-- Notion
-- HubSpot
-- Salesforce
-- Gmail
-- Google Drive
-- Google Sheets
-
-…and more through open-source connectors.
-
----
-
 # Documentation
 
-- 📖 Documentation → https://agentrein.com/docs
-- ⚡ Quickstart → https://agentrein.com/docs
-- 🔌 Connectors → https://github.com/agentrein/agentrein-connectors
-- 💬 Discord → https://discord.gg/EWkfguCV
+- 📖 **Docs** — https://agentrein.com/docs
+- ⚡ **Quick Start** — https://agentrein.com/docs/introduction
+- 🔌 **Connectors** — https://github.com/agentrein/agentrein-connectors
+- 💬 **Discord** — https://discord.gg/EWkfguCV
 
 ---
 
-# Built in the open.
+# Contributing
 
-AgentRein is open source.
+AgentRein is built in the open.
 
 We welcome:
 
-- New connectors
+- Connectors
+- Examples
 - Bug fixes
 - Documentation improvements
-- Examples
-- Ideas
+- Feature proposals
 
-If you're building AI infrastructure, we'd love to collaborate.
+See the contributing guide to get started.
 
 ---
 
 <div align="center">
 
-### Let them act.
+## Let them act.
 
 # Sleep at night.
 
