@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://www.agentrein.com/AgentRein.png" width="560" alt="AgentRein"/>
+<img src="https://www.agentrein.com/org.png" width="560" alt="AgentRein"/>
 
 # Wrap your AI agents. Undo anything.
 
