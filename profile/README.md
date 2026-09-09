@@ -15,13 +15,12 @@ When an AI agent makes bad tool calls or encounters errors mid-execution, AgentR
 
 AgentRein intercepts tool calls made by agents running on frameworks like LangChain, LangGraph, CrewAI, or custom Python and Node.js setups.
 
-+----------------+      Tool Call      +-----------------------+      Validated Call      +----------------+
-|    AI Agent    | ------------------> | AgentRein Safety Core | -----------------------> | External APIs  |
-| (LangGraph/etc)| <------------------ |  - Policy Verification| <----------------------- | (Slack, Stripe,|
-+----------------+     Execution       |  - Snapshot Engine    |        API Response      |  Notion, etc.) |
-Response        |  - Compensation Stack |                          +----------------+
-+-----------------------+
-
+    +----------------+      Tool Call      +-----------------------+      Validated Call      +----------------+
+    |    AI Agent    | ------------------> | AgentRein Safety Core | -----------------------> | External APIs  |
+    | (LangGraph/etc)| <------------------ |  - Policy Verification| <----------------------- | (Slack, Stripe,|
+    +----------------+     Execution       |  - Snapshot Engine    |        API Response      |  Notion, etc.) |
+                           Response        |  - Compensation Stack |                          +----------------+
+                                           +-----------------------+
 
 Every incoming API action gets categorized into safety groups:
 
@@ -50,35 +49,36 @@ If an execution fails or an agent strays off-track, calling a session rollback t
 
 Installation:
 
-```bash
-npm install agentrein
+    npm install agentrein
+
 Wrapping an action execution in Node.js / TypeScript:
 
-TypeScript
-import { AgentReinClient } from 'agentrein';
+    import { AgentReinClient } from 'agentrein';
+    
+    const client = new AgentReinClient({
+      apiKey: process.env.AGENTREIN_API_KEY!,
+    });
+    
+    const session = await client.createSession({
+      agentId: 'support-agent-01',
+    });
+    
+    // Run API call through safety proxy
+    const result = await session.executeAction({
+      connector: 'slack',
+      action: 'channels.invite',
+      payload: { channelId: 'C1234567', userIds: ['U9876543'] },
+    });
+    
+    // Revert all actions executed in this session if something went wrong
+    if (!result.success) {
+      await session.rollback();
+    }
 
-const client = new AgentReinClient({
-  apiKey: process.env.AGENTREIN_API_KEY!,
-});
+---
 
-const session = await client.createSession({
-  agentId: 'support-agent-01',
-});
+## Resources & Community
 
-// Run API call through safety proxy
-const result = await session.executeAction({
-  connector: 'slack',
-  action: 'channels.invite',
-  payload: { channelId: 'C1234567', userIds: ['U9876543'] },
-});
-
-// Revert all actions executed in this session if something went wrong
-if (!result.success) {
-  await session.rollback();
-}
-Resources & Community
-Documentation: agentrein.com/docs
-
-Website: agentrein.com
-
-Bug Tracker: Please open issues in the specific repository where the bug occurs.
+* Documentation: [agentrein.com/docs](https://agentrein.com/docs)
+* Website: [agentrein.com](https://agentrein.com)
+* Bug Tracker: Please open issues in the specific repository where the bug occurs.
