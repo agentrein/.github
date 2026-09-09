@@ -47,13 +47,11 @@ If an execution fails or an agent strays off-track, calling a session rollback t
 
 ## Quick Example
 
-### TypeScript / Node.js
-
 Installation:
 
     npm install agentrein
 
-Usage:
+Wrapping an action execution in Node.js / TypeScript:
 
     import { AgentReinClient } from 'agentrein';
     
@@ -65,39 +63,17 @@ Usage:
       agentId: 'support-agent-01',
     });
     
+    // Run API call through safety proxy
     const result = await session.executeAction({
       connector: 'slack',
       action: 'channels.invite',
       payload: { channelId: 'C1234567', userIds: ['U9876543'] },
     });
     
+    // Revert all actions executed in this session if something went wrong
     if (!result.success) {
       await session.rollback();
     }
-
-### Python
-
-Installation:
-
-    pip install agentrein
-
-Usage:
-
-    from agentrein import AgentReinClient
-    import os
-
-    client = AgentReinClient(api_key=os.environ.get("AGENTREIN_API_KEY"))
-
-    session = client.create_session(agent_id="support-agent-01")
-
-    result = session.execute_action(
-        connector="slack",
-        action="channels.invite",
-        payload={"channel_id": "C1234567", "user_ids": ["U9876543"]}
-    )
-
-    if not result.get("success"):
-        session.rollback()
 
 ---
 
