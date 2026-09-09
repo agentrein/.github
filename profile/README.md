@@ -5,13 +5,14 @@ AgentRein provides an execution safety layer for AI agents. It sits between AI f
 When an AI agent makes bad tool calls or encounters errors mid-execution, AgentRein reverts the state changes made across integrated services without losing context or corrupting external data.
 
 <p align="center">
-    
+
 [![Docs](https://img.shields.io/badge/Docs-agentrein.com-blue?logo=mintlify&logoColor=white)](https://agentrein.com/docs)
 [![npm](https://img.shields.io/npm/v/agentrein?color=CB3837&logo=npm)](https://www.npmjs.com/package/agentrein)
 [![PyPI](https://img.shields.io/pypi/v/agentrein?color=3775A9&logo=pypi&logoColor=white)](https://pypi.org/project/agentrein/)
 [![License](https://img.shields.io/badge/License-MIT-2ea44f)](https://opensource.org/licenses/MIT)
 
 </p>
+
 ---
 
 ## How It Works
